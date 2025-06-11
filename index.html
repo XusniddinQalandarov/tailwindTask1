@@ -1,100 +1,394 @@
+<!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Remove the line below if you don't want to use TailwindCSS -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              "fade-in": "fadeIn 0.3s ease-in-out",
+              "fade-out": "fadeOut 0.3s ease-in-out forwards",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: 0, transform: "translateY(-10px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+              fadeOut: {
+                "0%": { opacity: 1, transform: "translateY(0)" },
+                "100%": { opacity: 0, transform: "translateY(-10px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      #toast-container {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    </style>
+  </head>
 
-</head>
-
-<body class="bg-blue-50 font-sans flex items-center justify-center min-h-screen m-0">
-    <section class="flex flex-col gap-8 w-full max-w-3xl p-4">
-        <div class="bg-white shadow-md text-slate-800 flex items-center gap-4 p-3 w-full">
-            <div class="bg-green-600 rounded-full text-white flex items-center justify-center h-9 w-9 flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="w-5 h-5">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M5 12l5 5l10 -10" />
-                </svg>
-            </div>
-            <p class="flex-grow">File has been removed succesfully!</p>
-            <button class="bg-transparent border-none text-gray-500 cursor-pointer p-0 ml-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
-            </button>
+  <body
+    class="bg-blue-50 font-sans flex items-center justify-center min-h-screen m-0"
+  >
+    <section class="flex flex-col gap-8 w-full max-w-3xl p-10">
+      <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+        <h2
+          class="text-l md:text-xl lg:text-2xl font-semibold mb-4 text-center"
+        >
+          Toast Examples
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-1/2 p-2 mx-auto">
+          <button
+            onclick="showToast('toast-1')"
+            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
+            Show White Toast
+          </button>
+          <button
+            onclick="showToast('toast-2')"
+            class="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-900"
+          >
+            Show Dark Toast
+          </button>
+          <button
+            onclick="showToast('toast-3')"
+            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
+            Show Rounded Toast
+          </button>
+          <button
+            onclick="showToast('toast-4')"
+            class="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-900"
+          >
+            Show Dark Rounded Toast
+          </button>
+          <button
+            onclick="showToast('toast-5')"
+            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
+            Show Progress Toast
+          </button>
+          <button
+            onclick="showToast('toast-6')"
+            class="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-900"
+          >
+            Show Dark Progress Toast
+          </button>
         </div>
-        <div class="bg-slate-800 shadow-md text-white flex items-center gap-4 p-3 w-full">
-            <div class="bg-white rounded-full text-green-600 flex items-center justify-center h-9 w-9 flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="w-5 h-5">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M5 12l5 5l10 -10" />
-                </svg>
-            </div>
-            <p class="flex-grow">File has been removed succesfully!</p>
-            <button class="bg-transparent border-none text-gray-400 cursor-pointer p-0 ml-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
-            </button>
-        </div>
-        <div class="bg-white shadow-md text-slate-800 flex items-center gap-4 px-4 py-3 w-full rounded-full">
-            <div class="bg-green-600 rounded-full text-white flex items-center justify-center h-9 w-9 flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="w-5 h-5">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M5 12l5 5l10 -10" />
-                </svg>
-            </div>
-            <p class="flex-grow">File has been removed succesfully!</p>
-            <button class="bg-transparent border-none text-gray-500 cursor-pointer p-0 ml-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
-            </button>
-        </div>
-        <div class="bg-slate-800 shadow-md text-white flex items-center gap-4 px-4 py-3 w-full rounded-full">
-            <div class="bg-white rounded-full text-green-600 flex items-center justify-center h-9 w-9 flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="w-5 h-5">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M5 12l5 5l10 -10" />
-                </svg>
-            </div>
-            <p class="flex-grow">File has been removed succesfully!</p>
-            <button class="bg-transparent border-none text-gray-400 cursor-pointer p-0 ml-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
-            </button>
-        </div>
-
-        <div class="relative bg-white shadow-md text-slate-800 flex items-center justify-center gap-4 p-3 w-full">
-            <div class="bg-green-600 rounded-full text-white flex items-center justify-center h-9 w-9 flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="w-5 h-5">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M5 12l5 5l10 -10" />
-                </svg>
-            </div>
-            <p>File has been removed succesfully!</p>
-            <div class="absolute bottom-0 left-0 h-[3px] bg-slate-800" style="width: 30%;"></div>
-        </div>
-
-        <div class="relative bg-slate-800 shadow-md text-white flex items-center justify-center gap-4 p-3 w-full">
-            <div class="bg-white rounded-full text-green-600 flex items-center justify-center h-9 w-9 flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="w-5 h-5">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M5 12l5 5l10 -10" />
-                </svg>
-            </div>
-            <p>File has been removed succesfully!</p>
-            <div class="absolute bottom-0 left-0 h-[3px] bg-white" style="width: 30%;"></div>
-        </div>
+      </div>
     </section>
-</body>
-<!-- Change code above this line -->
 
+    <div id="toast-container">
+      <div
+        id="toast-1"
+        class="hidden flex bg-white shadow-md text-slate-800 items-center gap-4 p-3 w-96 max-w-sm"
+      >
+        <div
+          class="bg-green-600 rounded-full text-white flex items-center justify-center h-9 w-9 flex-shrink-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 12l5 5l10 -10" />
+          </svg>
+        </div>
+        <p class="flex-grow">File has been removed successfully!</p>
+        <button
+          class="bg-transparent border-none text-gray-500 cursor-pointer p-0 ml-auto close-toast"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        id="toast-2"
+        class="hidden flex bg-slate-800 shadow-md text-white items-center gap-4 p-3 w-96 max-w-sm"
+      >
+        <div
+          class="bg-white rounded-full text-green-600 flex items-center justify-center h-9 w-9 flex-shrink-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 12l5 5l10 -10" />
+          </svg>
+        </div>
+        <p class="flex-grow">File has been removed successfully!</p>
+        <button
+          class="bg-transparent border-none text-gray-400 cursor-pointer p-0 ml-auto close-toast"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        id="toast-3"
+        class="hidden flex bg-white shadow-md text-slate-800 items-center gap-4 px-4 py-3 w-96 max-w-sm rounded-full"
+      >
+        <div
+          class="bg-green-600 rounded-full text-white flex items-center justify-center h-9 w-9 flex-shrink-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 12l5 5l10 -10" />
+          </svg>
+        </div>
+        <p class="flex-grow">File has been removed successfully!</p>
+        <button
+          class="bg-transparent border-none text-gray-500 cursor-pointer p-0 ml-auto close-toast"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        id="toast-4"
+        class="hidden flex bg-slate-800 shadow-md text-white items-center gap-4 px-4 py-3 w-96 max-w-sm rounded-full"
+      >
+        <div
+          class="bg-white rounded-full text-green-600 flex items-center justify-center h-9 w-9 flex-shrink-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 12l5 5l10 -10" />
+          </svg>
+        </div>
+        <p class="flex-grow">File has been removed successfully!</p>
+        <button
+          class="bg-transparent border-none text-gray-400 cursor-pointer p-0 ml-auto close-toast"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        id="toast-5"
+        class="hidden flex relative bg-white shadow-md text-slate-800 items-center gap-4 p-3 w-96 max-w-sm"
+      >
+        <div
+          class="bg-green-600 rounded-full text-white flex items-center justify-center h-9 w-9 flex-shrink-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 12l5 5l10 -10" />
+          </svg>
+        </div>
+        <p class="flex-grow">File has been removed successfully!</p>
+        <div
+          class="progress-bar absolute bottom-0 left-0 h-[3px] bg-slate-800"
+          style="width: 100%"
+        ></div>
+      </div>
+
+      <div
+        id="toast-6"
+        class="hidden flex relative bg-slate-800 shadow-md text-white items-center gap-4 p-3 w-96 max-w-sm"
+      >
+        <div
+          class="bg-white rounded-full text-green-600 flex items-center justify-center h-9 w-9 flex-shrink-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 12l5 5l10 -10" />
+          </svg>
+        </div>
+        <p class="flex-grow">File has been removed successfully!</p>
+        <div
+          class="progress-bar absolute bottom-0 left-0 h-[3px] bg-white"
+          style="width: 100%"
+        ></div>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".close-toast").forEach((button) => {
+          button.addEventListener("click", () => {
+            const toast = button.closest('[id^="toast-"]');
+            hideToast(toast);
+          });
+        });
+      });
+
+      function showToast(id, duration = 5000) {
+        const toast = document.getElementById(id);
+        if (!toast) return;
+
+        document.querySelectorAll('[id^="toast-"]').forEach((t) => {
+          if (!t.classList.contains("hidden") && t.id !== id) {
+            hideToast(t);
+          }
+        });
+        if (toast.hideTimeout) {
+          clearTimeout(toast.hideTimeout);
+        }
+        toast.classList.remove("hidden");
+        toast.classList.remove("animate-fade-out");
+        toast.classList.add("animate-fade-in");
+        const progressBar = toast.querySelector(".progress-bar");
+        if (progressBar) {
+          progressBar.style.transition = "none";
+          progressBar.style.width = "100%";
+          void progressBar.offsetWidth;
+          progressBar.style.transition = `width ${duration}ms linear`;
+          progressBar.style.width = "0%";
+        }
+        toast.hideTimeout = setTimeout(() => hideToast(toast), duration);
+      }
+
+      function hideToast(toast) {
+        if (!toast || toast.classList.contains("hidden")) {
+          return;
+        }
+
+        if (toast.hideTimeout) {
+          clearTimeout(toast.hideTimeout);
+          toast.hideTimeout = null;
+        }
+        toast.classList.remove("animate-fade-in");
+        toast.classList.add("animate-fade-out");
+
+        setTimeout(() => {
+          toast.classList.add("hidden");
+          toast.classList.remove("animate-fade-out");
+        }, 300);
+      }
+    </script>
+  </body>
 </html>
